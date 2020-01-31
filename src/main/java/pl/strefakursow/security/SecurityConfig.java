@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.context.SecurityContextHolderStrategy;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
@@ -28,7 +29,22 @@ public class SecurityConfig {
 			.password("{noop}user").roles("USER").and()
 			.withUser("admin").password("{noop}admin")
 			.roles("ADMIN").and().withUser("editor")
-			.password("{noop}editor").roles("EDITOR");
+			.password("{noop}editor").roles("EDITOR").and()
+			.withUser("reader").password("{noop}reader")
+			.roles("USER");
+	}
+
+	@Order(3)
+	@Configuration
+	public static class RestApiConfig extends WebSecurityConfigurerAdapter {
+		@Override
+		protected void configure(HttpSecurity http) throws Exception {
+			http.antMatcher("/api/**").authorizeRequests()
+				.anyRequest().authenticated().and().httpBasic()
+				.and().csrf().disable().sessionManagement()
+				.sessionCreationPolicy(
+					SessionCreationPolicy.STATELESS);
+		}
 	}
 
 	@Order(2)
