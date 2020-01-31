@@ -1,4 +1,4 @@
-package pl.strefakursow.security;
+package pl.strefakursow.security.secret;
 
 import org.springframework.security.authentication.AbstractAuthenticationToken;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -26,20 +26,9 @@ public class SecretAuthenticationProvider implements AuthenticationProvider {
 		String secret = (String) authentication.getCredentials();
 		return repository.loadBySecret(secret).map(u -> {
 			AbstractAuthenticationToken authResult =
-				new AbstractAuthenticationToken(
+				new SecretToken(
 				List.of(new SimpleGrantedAuthority(
-					"ROLE_USER"))) {
-
-				@Override
-				public Object getCredentials() {
-					return secret;
-				}
-
-				@Override
-				public Object getPrincipal() {
-					return u.getUsername();
-				}
-			};
+					"ROLE_USER")), secret, u);
 			authResult.setAuthenticated(true);
 			return authResult;
 		}).orElseThrow(
@@ -49,6 +38,7 @@ public class SecretAuthenticationProvider implements AuthenticationProvider {
 	@Override
 	public boolean supports(Class<?> authentication) {
 		return UsernamePasswordAuthenticationToken.class
+			.equals(authentication) || SecretToken.class
 			.equals(authentication);
 	}
 }
