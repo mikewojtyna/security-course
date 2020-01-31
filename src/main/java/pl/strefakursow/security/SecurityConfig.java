@@ -6,6 +6,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -15,6 +16,7 @@ import pl.strefakursow.security.secret.SecretAuthenticationProvider;
 import pl.strefakursow.security.secret.SecretTokenFilter;
 
 @Configuration
+@EnableGlobalMethodSecurity(jsr250Enabled = true)
 public class SecurityConfig {
 
 	@Autowired
@@ -23,7 +25,10 @@ public class SecurityConfig {
 		SecretAuthenticationProvider secretProvider) throws Exception {
 		builder.authenticationProvider(secretProvider)
 			.inMemoryAuthentication().withUser("user")
-			.password("{noop}user").roles("USER");
+			.password("{noop}user").roles("USER").and()
+			.withUser("admin").password("{noop}admin")
+			.roles("ADMIN").and().withUser("editor")
+			.password("{noop}editor").roles("EDITOR");
 	}
 
 	@Order(2)
@@ -57,9 +62,10 @@ public class SecurityConfig {
 	public static class HttpBasicConfig extends WebSecurityConfigurerAdapter {
 		@Override
 		protected void configure(HttpSecurity http) throws Exception {
-			http.antMatcher("/secured-basic").authorizeRequests()
-				.anyRequest().authenticated().and().httpBasic()
-				.and().csrf().disable();
+			http.antMatcher("/secured-basic/**").authorizeRequests()
+				.antMatchers("/secured-basic/admin")
+				.hasRole("ADMIN").anyRequest().authenticated()
+				.and().httpBasic().and().csrf().disable();
 		}
 	}
 

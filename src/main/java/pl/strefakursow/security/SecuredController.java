@@ -3,6 +3,8 @@ package pl.strefakursow.security;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import javax.annotation.security.RolesAllowed;
+
 @Controller
 public class SecuredController {
 	@GetMapping("/secured-basic")
@@ -23,5 +25,16 @@ public class SecuredController {
 	@GetMapping("/secured-secret")
 	public String secretPage() {
 		return "secured-secret";
+	}
+
+	@GetMapping("/secured-basic/admin")
+	public String adminPage() {
+		return "admin";
+	}
+
+	@RolesAllowed({"EDITOR"})
+	@GetMapping("/secured-basic/edit")
+	public String editPage() {
+		return "edit";
 	}
 }
