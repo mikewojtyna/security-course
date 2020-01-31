@@ -1,8 +1,10 @@
 package pl.strefakursow.security;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.annotation.Order;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,6 +12,14 @@ import org.springframework.security.core.context.SecurityContextHolderStrategy;
 
 @Configuration
 public class SecurityConfig {
+
+	@Autowired
+	public void configureAuthenticationManager(
+		AuthenticationManagerBuilder builder,
+		SecretAuthenticationProvider provider) {
+		builder.authenticationProvider(provider);
+	}
+
 	@Order(0)
 	@Configuration
 	public static class HttpBasicConfig extends WebSecurityConfigurerAdapter {
