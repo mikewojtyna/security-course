@@ -20,7 +20,6 @@ public class InMemoryMapUserDetailsService implements UserDetailsService {
 		users = new ConcurrentHashMap<>();
 		users.put("goobar", user("goobar", passwordEncoder));
 		users.put("user", user("user", passwordEncoder));
-		users.put("user", user("user", passwordEncoder));
 		users.put("admin",
 			userWithRole("admin", passwordEncoder, "ROLE_ADMIN"));
 		users.put("editor",
