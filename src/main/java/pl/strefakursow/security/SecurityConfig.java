@@ -35,14 +35,7 @@ public class SecurityConfig {
 		SecretAuthenticationProvider secretProvider) throws Exception {
 		builder.userDetailsService(userDetailsService)
 			.passwordEncoder(passwordEncoder).and()
-			.authenticationProvider(secretProvider)
-			.inMemoryAuthentication().withUser("user")
-			.password("{noop}user").roles("USER").and()
-			.withUser("admin").password("{noop}admin")
-			.roles("ADMIN").and().withUser("editor")
-			.password("{noop}editor").roles("EDITOR").and()
-			.withUser("reader").password("{noop}reader")
-			.roles("USER");
+			.authenticationProvider(secretProvider);
 	}
 
 	@Configuration
