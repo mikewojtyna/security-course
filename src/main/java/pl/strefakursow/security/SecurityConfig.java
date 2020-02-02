@@ -106,8 +106,7 @@ public class SecurityConfig {
 				.antMatchers("/secured-form/login").permitAll()
 				.anyRequest().authenticated().and().formLogin()
 				.loginPage("/secured-form/login")
-				.loginProcessingUrl("/secured-form/login").and()
-				.csrf().disable();
+				.loginProcessingUrl("/secured-form/login");
 		}
 	}
 
