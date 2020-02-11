@@ -1,12 +1,12 @@
-package pl.strefakursow.security.attacks;
+package pl.strefakursow.security.simple.attacks;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import pl.strefakursow.security.attacks.sqlinjection.User;
-import pl.strefakursow.security.attacks.sqlinjection.UserDao;
+import pl.strefakursow.security.simple.attacks.sqlinjection.User;
+import pl.strefakursow.security.simple.attacks.sqlinjection.UserDao;
 
 import java.util.Collection;
 
