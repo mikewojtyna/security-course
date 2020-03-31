@@ -27,7 +27,7 @@ możesz pracować razem z kursem, eksperymentując ze swoim kodem a jednocześni
  mieć możliwość, aby w każdej chwili przełączyć się na gałąź zawierającą 
  efekt finalny.
  
- * Uwaga * Lekcji 5_6 odpowiada wyjątkowo branch 5_8.
+ **Uwaga** Lekcji 5_6 odpowiada wyjątkowo branch 5_8.
 
  ## Wymagania
  JDK **11+**. Zmienna środowiskowa **PATH** powinna wskazywać na katalog z 
