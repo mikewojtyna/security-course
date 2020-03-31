@@ -25,7 +25,9 @@ początek lekcji i na koniec. Każda taka gałąź ma nazwę w formacie
 znajduje się w gałęzi **3_5_begin** a jej koniec w **3_5_end**. Dzięki temu 
 możesz pracować razem z kursem, eksperymentując ze swoim kodem a jednocześnie
  mieć możliwość, aby w każdej chwili przełączyć się na gałąź zawierającą 
- efekt finalny. 
+ efekt finalny.
+ 
+ * Uwaga * Lekcji 5_6 odpowiada wyjątkowo branch 5_8.
 
  ## Wymagania
  JDK **11+**. Zmienna środowiskowa **PATH** powinna wskazywać na katalog z 
